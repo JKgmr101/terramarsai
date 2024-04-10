@@ -63,9 +63,9 @@ dropdown_card = dbc.Card(
             dcc.Dropdown(
                 id="mineral-dropdown",
                 options=[
-                    {"label": mineral, "value": mineral} for mineral in df.columns[6:]
+                    {"label": mineral, "value": mineral} for mineral in df.columns[5:]
                 ],  # Adjusted to skip 'Region'
-                value=df.columns[3],
+                value=df.columns[2],
             )
         ),
     ],
