@@ -9,6 +9,7 @@ df = pd.read_csv("db.csv")
 
 # Use a Bootswatch theme
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
+server = app.server
 
 # Navbar with logo and always-visible hamburger menu
 navbar = dbc.Navbar(
