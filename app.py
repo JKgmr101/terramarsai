@@ -63,7 +63,7 @@ dropdown_card = dbc.Card(
             dcc.Dropdown(
                 id="mineral-dropdown",
                 options=[
-                    {"label": mineral, "value": mineral} for mineral in df.columns[3:]
+                    {"label": mineral, "value": mineral} for mineral in df.columns[6:]
                 ],  # Adjusted to skip 'Region'
                 value=df.columns[3],
             )
@@ -92,7 +92,7 @@ def update_image_list(selected_mineral):
                     dbc.Card(
                         [
                             dbc.CardHeader(
-                                f"ID: {row['ImageID']} - Region: {row['Region']}"
+                                f"ID: {row['ImageID']} - Description: {row['Region']}"
                             ),
                             # Use object-fit 'contain' to ensure images are resized, not cropped
                             dbc.CardImg(
