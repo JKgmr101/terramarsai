@@ -5,7 +5,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 
 # Read in the CSV file into a pandas DataFrame
-df = pd.read_csv('db.csv')  
+df = pd.read_csv("db.csv")
 
 # Use a Bootswatch theme
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUX])
@@ -16,8 +16,14 @@ navbar = dbc.Navbar(
         [
             dbc.Row(
                 [
-                    dbc.Col(html.Img(src=app.get_asset_url('mars-logo.png'), height="100rem")),
-                    dbc.Col(dbc.NavbarBrand("Mars Mineral Image Finder", className="ml-2")),
+                    dbc.Col(
+                        html.Img(
+                            src=app.get_asset_url("mars-logo.png"), height="100rem"
+                        )
+                    ),
+                    dbc.Col(
+                        dbc.NavbarBrand("Mars Mineral Image Finder", className="ml-2")
+                    ),
                 ],
                 align="center",
                 className="g-0",
@@ -54,31 +60,26 @@ dropdown_card = dbc.Card(
         dbc.CardHeader("Choose a Mineral"),
         dbc.CardBody(
             dcc.Dropdown(
-                id='mineral-dropdown',
-                options=[{'label': mineral, 'value': mineral} for mineral in df.columns[3:]],  # Adjusted to skip 'Region'
-                value=df.columns[3]
+                id="mineral-dropdown",
+                options=[
+                    {"label": mineral, "value": mineral} for mineral in df.columns[3:]
+                ],  # Adjusted to skip 'Region'
+                value=df.columns[3],
             )
         ),
     ],
-    style={"margin": "20px"}
+    style={"margin": "20px"},
 )
 
 # Image container layout
-image_container = html.Div(id='image-container', style={'margin': '20px'})
+image_container = html.Div(id="image-container", style={"margin": "20px"})
 
-app.layout = dbc.Container(
-    [
-        navbar,
-        dropdown_card,
-        image_container
-    ],
-    fluid=True
-)
+app.layout = dbc.Container([navbar, dropdown_card, image_container], fluid=True)
+
 
 # Callback to update images
 @app.callback(
-    Output('image-container', 'children'),
-    [Input('mineral-dropdown', 'value')]
+    Output("image-container", "children"), [Input("mineral-dropdown", "value")]
 )
 def update_image_list(selected_mineral):
     filtered_df = df[df[selected_mineral] == 1]
@@ -89,26 +90,40 @@ def update_image_list(selected_mineral):
                 dbc.Col(
                     dbc.Card(
                         [
-                            dbc.CardHeader(f"ID: {row['ImageID']} - Region: {row['Region']}"),
+                            dbc.CardHeader(
+                                f"ID: {row['ImageID']} - Region: {row['Region']}"
+                            ),
                             # Use object-fit 'contain' to ensure images are resized, not cropped
-                            dbc.CardImg(src=app.get_asset_url(f'images/{row["ImageFilename"]}'), top=True, style={"height": "200px", "object-fit": "contain", "width": "100%"}),
+                            dbc.CardImg(
+                                src=app.get_asset_url(f'images/{row["ImageFilename"]}'),
+                                top=True,
+                                style={
+                                    "height": "200px",
+                                    "object-fit": "contain",
+                                    "width": "100%",
+                                },
+                            ),
                             dbc.CardBody(
                                 [
-                                    html.P(f"Mineral: {selected_mineral}", className="card-text")
+                                    html.P(
+                                        f"Mineral: {selected_mineral}",
+                                        className="card-text",
+                                    )
                                 ]
                             ),
                         ],
-                        className="mb-3 h-100"  # Use 'h-100' to make cards of equal height
+                        className="mb-3 h-100",  # Use 'h-100' to make cards of equal height
                     ),
                     md=4,  # With 'md=4', you get 3 images per row on medium to large screens
                 )
                 for _, row in filtered_df.iterrows()
             ],
-            className="mb-4"
+            className="mb-4",
         )
         return row
     else:
         return dbc.Alert("No images found for this mineral.", color="warning")
 
-if __name__ == '__main__':
-    app.run_server(debug=True)
+
+if __name__ == "__main__":
+    app.run_server(debug=False)
