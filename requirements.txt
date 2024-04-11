@@ -3,3 +3,4 @@ dash
 plotly==5.7.0
 dash-bootstrap-components
 gunicorn
+dash_leaflet
