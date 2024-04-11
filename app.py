@@ -229,10 +229,10 @@ mars_map_layout = html.Div(
                             0,
                             0,
                         ),  # Mars map center coordinates, adjust as necessary
-                        maxBounds=[
-                            [-90, -100],
-                            [90, 100],
-                        ],  # Set max bounds (southwest to northeast) based on map projection
+                        # maxBounds=[
+                        #     [-90, -100],
+                        #     [90, 100],
+                        # ],  # Set max bounds (southwest to northeast) based on map projection
                         worldCopyJump=False,
                         zoom=4,  # Initial zoom level, adjust as necessary
                     ),
@@ -266,7 +266,7 @@ def update_map(selected_mineral):
                     children=[
                         html.Img(
                             src=app.get_asset_url(f'images/{row["ImageFilename"]}'),
-                            style={"width": "auto", "height": "30rem"},
+                            style={"width": "auto", "height": "25rem"},
                         ),  #'max-height': '100%', 'cursor': 'zoom-in'
                     ],
                     maxWidth=200,
