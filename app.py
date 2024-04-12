@@ -34,7 +34,7 @@ navbar = dbc.Navbar(
                         )
                     ),
                     dbc.Col(
-                        dbc.NavbarBrand("Mars Mineral Image Finder", className="ml-2")
+                        dbc.NavbarBrand("TerraMars AI Explorer", className="ml-2")
                     ),
                 ],
                 align="center",
